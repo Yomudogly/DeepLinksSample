@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+        <script>
+            function getMobileOperatingSystem() {
+               let userAgent = navigator.userAgent || navigator.vendor || window.opera;
+               if( userAgent.match( /iPad/i ) || userAgent.match( /iPhone/i ) || userAgent.match( /iPod/i ) )
+               {
+                  return 'iOS';
+               }
+               else if( userAgent.match( /Android/i ) )
+               {
+                  return 'Android';
+               }
+               else
+               {
+                  return 'unknown';
+               }
+            }
+        
+            function onLoad(){
+               let urlLink1 = "http://www.instagram.com/{ID}";
+               let urlLink2 = "http://www.twitter.com/{ID}";
+               let urlLink3 = "http://www.facebook.com/{ID}";
+               let urlLink4 = "https://www.youtube.com/channel/{ID}"
+               switch(getMobileOperatingSystem()){
+                   case 'Android':
+                   if (window.location == "instagram://") {
+                            urlLink1 = "instagram://user?username={ID}";
+                        } else {
+                            urlLink1 = "http://www.instagram.com/{ID}";
+                        }
+                        if (window.location == "twitter://") {
+                            urlLink2 = "twitter://user?screen_name={ID}";
+                        } else {
+                            urlLink2 = "http://www.twitter.com/{ID}";
+                        }
+                       
+                        urlLink3 = "fb://page/{ID}";
+                          
+                        urlLink4 = "https://www.youtube.com/channel/{ID}"
+                        break;
+                   case 'iOS':
+                        if (window.location == "instagram://") {
+                            urlLink1 = "instagram://user?username={ID}";
+                        } else {
+                            urlLink1 = "http://www.instagram.com/{ID}";
+                        }
+                        if (window.location == "twitter://") {
+                            urlLink2 = "twitter://user?screen_name={ID}";
+                        } else {
+                            urlLink2 = "http://www.twitter.com/{ID}";
+                        }
+
+                        urlLink3 = "fb://profile/{ID}";
+ 
+                        urlLink4 = "https://www.youtube.com/channel/{ID}"
+                        break;
+                   default:
+                        break;
+                }
+               document.getElementById('yourLink1').setAttribute('href', urlLink1);
+               document.getElementById('yourLink2').setAttribute('href', urlLink2);
+               document.getElementById('yourLink3').setAttribute('href', urlLink3);
+               document.getElementById('yourLink4').setAttribute('href', urlLink4);
+            }
+            window.onload = onLoad;
+            </script>
+        
+            <a id="yourLink1" target="_blank">Link1</a>
+            <a id="yourLink2" target="_blank">Link2</a>
+            <a id="yourLink3" target="_blank">Link3</a>
+            <a id="yourLink4" target="_blank">Link4</a>
+    </body>
+</html>
